@@ -1,0 +1,106 @@
+﻿@model IEnumerable<AprimoTaskViewer.Models.TaskDetailNew>
+@using AprimoTaskViewer.Helpers;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+           @*('Search' action method, Controller)*@
+ @using (Html.BeginForm("Search", "TaskDetailNew"))
+ {
+     @*input String 'SearchBox' into Action 'Search' - StudentController*@
+     @Html.Editor("SearchBox")           @*Name of textbox*@
+     <input type="submit" value="Search" />  @*Submit - button ("Search")*@
+            @*@Html.DropDownList("DateDropDown", ViewBag.DateHistory as SelectList, "Select Date History")
+            @Html.DropDownListFor(M => M.DateRange, new SelectList(Model.DateRange, "Value", "Text"))*@
+     }
+<br>
+
+@using (Html.BeginForm("deleteRow", "TaskDetailNew", FormMethod.Post))
+{
+    @*CSS3 - alternate row colors*@
+    <style>
+        tr:nth-child(odd) {
+            background-color: #eee;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fff;
+        }
+    </style>
+    <table class="table">
+        <tr>
+            <th>
+                Select
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.employee.ManagerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status.StatusName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BeginDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FrameNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AprimoNumber)
+            </th>
+            <th></th>
+        </tr>
+        @*<tbody>
+            @Html.EditorForModel()
+        </tbody>*@
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" name="aprimoRecordDeletebyId" id="aprimoRecordDeletebyId" value="@item.TaskDetailId" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.employee.ManagerName)
+                    @* @Model.employee.ManagerName*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.status.StatusName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BeginDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.Truncate(item.TaskName, 20)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.FrameNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AprimoNumber)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TaskDetailId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.TaskDetailId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TaskDetailId })
+                </td>
+            </tr>
+        }
+
+    </table>
+    <input type="submit" value="Delete Row(s)" />
+}

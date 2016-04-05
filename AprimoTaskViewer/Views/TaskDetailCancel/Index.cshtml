@@ -1,0 +1,79 @@
+﻿@model IEnumerable<AprimoTaskViewer.Models.TaskDetailCancel>
+@using AprimoTaskViewer.Helpers;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@*('Search' action method, 'TaskDetailCancel' Controller)*@
+@using (Html.BeginForm("Search", "TaskDetailCancel"))
+{
+    @*input String 'SearchBox' into Action 'Search' - StudentController*@
+    @Html.Editor("SearchBox")           @*textbox*@
+    <input type="submit" value="Search" />  @*Submit - button ("Search")*@
+}
+<br><br>
+
+@*CSS3 - alternate row colors*@
+<style>
+    tr:nth-child(odd) {
+        background-color: #eee;
+    }
+
+    tr:nth-child(even) {
+        background-color: #fff;
+    }
+</style>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.employee.ManagerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status.StatusName)
+        </th>
+        <th>
+           @Html.DisplayNameFor(model => model.TaskName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FrameNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AprimoNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.employee.ManagerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status.StatusName)
+        </td>
+        <td>
+            @Html.Truncate(item.TaskName, 20)
+            @*@Html.DisplayFor(modelItem => item.TaskName)*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FrameNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AprimoNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TaskDetailId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TaskDetailId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TaskDetailId })
+        </td>
+    </tr>
+}
+
+</table>

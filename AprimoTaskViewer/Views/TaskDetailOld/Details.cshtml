@@ -1,0 +1,74 @@
+﻿@model AprimoTaskViewer.Models.TaskDetailOld
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TaskDetailOld</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.employee.ManagerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employee.ManagerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status.StatusName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status.StatusName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeginDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeginDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FrameNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FrameNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AprimoNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AprimoNumber)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TaskDetailId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AprimoTaskViewer.Models.TaskDetailNew>
+@using AprimoTaskViewer.Helpers;
+
+@*@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>*@
+@foreach (var item in Model)
+{
+<tr>
+    <td>
+      <input type="checkbox" name="aprimoRecordDeletebyId" id="aprimoRecordDeletebyId" value="@item.TaskDetailId" />
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.employee.ManagerName)
+       @* @Model.employee.ManagerName*@
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.status.StatusName)
+       @* @Model.status.StatusName*@
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.BeginDate)
+       @* @Model.BeginDate*@
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EndDate)
+      @*  @Model.EndDate*@
+    </td>
+    <td>
+        @Html.Truncate(item.TaskName, 20)
+        @*@Html.Truncate(Model.TaskName, 20)*@
+    </td>
+    <td>
+
+        @Html.DisplayFor(modelItem => item.FrameNumber)
+    @*    @Model.FrameNumber*@
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AprimoNumber)
+     @*   @Model.AprimoNumber*@
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.TaskDetailId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.TaskDetailId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.TaskDetailId })
+    </td>
+</tr>
+}

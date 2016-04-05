@@ -1,0 +1,122 @@
+﻿@model IEnumerable<AprimoTaskViewer.Models.TaskDetailOld>
+@using AprimoTaskViewer.Helpers;
+
+@{
+    ViewBag.Title = "Old Tasks";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+                        @*('Import' action method, 'TaskDetailOld' Controller)*@ 
+@using (Html.BeginForm("Import", "TaskDetailOld", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <span><b> Excel File </b></span>
+         <input type = "file" name = "excelfile" />
+            <br> @Html.Raw(ViewBag.Error)
+            @*@Html.DropDownList("statusId", ViewBag.StatusId as SelectList, "Select Status")*@
+            <input type = "submit" value = "Import" class="btn btn-primary" />
+            <br><br>
+}
+
+       @*('Search' action method, 'TaskDetailOld' Controller)*@
+@using (Html.BeginForm("Search", "TaskDetailOld"))
+{
+    @*input String 'SearchBox' into Action 'Search' - StudentController*@
+    @Html.Editor("SearchBox")           @*textbox*@
+    <input type="submit" value="Search" />  @*Submit - button ("Search")*@
+    @Html.DropDownList("dateRangeId", ViewBag.DateHistory as SelectList, "Select Date History")
+}
+<br>
+
+ @using (Html.BeginForm("deleteRow", "TaskDetailOld", FormMethod.Post))
+ {
+     @*CSS3 - alternate row colors*@
+    <style>
+        tr:nth-child(odd) {
+            background-color: #eee;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fff;
+        }
+    </style>
+    @*@Html.DropDownList("statusId", ViewBag.StatusId as SelectList, "Select Status")*@
+           <table class="table">
+              
+               <tr>
+                   <th>
+                       Select
+                   </th>
+                   <th> 
+                       @Html.ActionLink("Manager", "Index", new { sortOrder = ViewBag.ManagerSortParm }) 
+                   </th>
+                   <th>
+                       @Html.DisplayNameFor(model => model.status.StatusName)
+                   </th>
+                   <th>
+                       @Html.ActionLink("Begin Date", "Index", new { sortOrder = ViewBag.BeginDateSortParm })
+                   </th>
+
+                   <th>
+                       @Html.DisplayNameFor(model => model.EndDate)
+                   </th>
+                   <th>
+                       @Html.ActionLink("Task Name", "Index", new { sortOrder = ViewBag.TaskNameSortParm })
+                   </th>
+                   <th>
+                       @Html.ActionLink("Frame #", "Index", new { sortOrder = ViewBag.FrameNumberSortParm })
+                   </th>
+
+                   <th>
+                       @Html.ActionLink("Aprimo #", "Index", new { sortOrder = ViewBag.AprimoSortParm })
+                   </th>
+                   <th>
+                   </th>
+               </tr>
+                   @*<tbody>
+                       @Html.EditorForModel()
+                   </tbody>*@
+               @foreach (var item in Model)
+               {
+                   <tr>
+                       <td>
+                           <input type="checkbox" name="aprimoRecordDeletebyId" id="aprimoRecordDeletebyId" value="@item.TaskDetailId" />
+                       </td>
+                       <td>
+                           @Html.DisplayFor(modelItem => item.employee.ManagerName)
+                           @* @Model.employee.ManagerName*@
+                       </td>
+                       <td>
+                           @Html.DisplayFor(modelItem => item.status.StatusName)
+                       </td>
+                       <td>
+                           @Html.DisplayFor(modelItem => item.BeginDate)
+                       </td>
+                       <td>
+                           @Html.DisplayFor(modelItem => item.EndDate)
+                       </td>
+                       <td>
+                           @Html.Truncate(item.TaskName, 20)
+                       </td>
+                       <td>
+
+                           @Html.DisplayFor(modelItem => item.FrameNumber)
+                       </td>
+                       <td>
+                           @Html.DisplayFor(modelItem => item.AprimoNumber)
+                       </td>
+                       <td>
+                           @Html.ActionLink("Edit", "Edit", new { id = item.TaskDetailId }) |
+                           @Html.ActionLink("Details", "Details", new { id = item.TaskDetailId }) |
+                           @Html.ActionLink("Delete", "Delete", new { id = item.TaskDetailId })
+                       </td>
+                   </tr>
+               }
+
+           </table>
+        <input type="submit" value="Delete Selected" class="btn btn-primary" />
+ }
